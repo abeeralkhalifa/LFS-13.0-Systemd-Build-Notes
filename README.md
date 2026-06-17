@@ -3,6 +3,8 @@
 
 This repository documents my practical journey of building a Linux system from source using the official Linux From Scratch 13.0-systemd book.
 
+This project is maintained by Abeer Alkhalifa as part of a Linux systems documentation portfolio.
+
 The purpose of this project is to understand how a Linux system is built from the ground up, starting from host preparation and the temporary toolchain, then entering the chroot environment, and finally building a complete bootable Linux system.
 
 ---
