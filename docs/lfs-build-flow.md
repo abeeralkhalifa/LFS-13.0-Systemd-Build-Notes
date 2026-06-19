@@ -1,44 +1,64 @@
-# LFS Build Flow Chart
+# LFS Build Roadmap
 
-This document provides a high-level visual overview of the Linux From Scratch 13.0-systemd build process.
+This document provides a structured overview of the Linux From Scratch 13.0-systemd build process.
 
-The goal is to show the main build sequence clearly without making the diagram too long or difficult to read. Detailed package notes are documented separately in the chapter files under the `docs/` directory.
+Instead of using a large diagram, this roadmap breaks the build into clear stages. Each stage explains what is being prepared, why it matters, and how it connects to the next stage.
 
-## Main Build Flow
+The official Linux From Scratch book remains the primary reference for exact commands, package versions, and build instructions.
 
-```mermaid
-flowchart LR
-    A[Host Preparation] --> B[Temporary Cross-Toolchain]
-    B --> C[Temporary Tools]
-    C --> D[Chroot Preparation]
-    D --> E[Temporary Tools inside Chroot]
-    E --> F[Temporary System Cleanup]
-    F --> G[Final System Packages]
-    G --> H[System Configuration]
-    H --> I[Kernel and Boot Setup]
-    I --> J[First Boot]
+---
+
+## Build Overview
+
+```text
+Host Preparation
+        ↓
+Temporary Cross-Toolchain
+        ↓
+Temporary Tools
+        ↓
+Chroot Preparation
+        ↓
+Temporary Tools inside Chroot
+        ↓
+Temporary System Cleanup
+        ↓
+Final System Packages
+        ↓
+System Configuration
+        ↓
+Kernel and Boot Setup
+        ↓
+First Boot
 ```
 
-## Stage Details
+---
 
-### 1. Host Preparation
+## Stage 1: Host Preparation
 
-This stage prepares the host environment used to build LFS.
+**Purpose:**
+Prepare the host system that will be used to build LFS.
 
-Main tasks:
+**Main tasks:**
 
 * Prepare the Debian host system inside VirtualBox.
-* Check host system requirements.
+* Check that the required host tools are available.
 * Create and mount the LFS partition.
 * Set the `LFS=/mnt/lfs` environment variable.
 * Create the sources directory.
 * Download the required packages and patches.
 
-### 2. Temporary Cross-Toolchain
+**Result:**
+The host system is ready to start building the LFS temporary toolchain.
 
-This stage builds the first isolated toolchain used to build the temporary system.
+---
 
-Main components:
+## Stage 2: Temporary Cross-Toolchain
+
+**Purpose:**
+Build the first isolated toolchain used to separate the new LFS system from the host system.
+
+**Main components:**
 
 * Binutils Pass 1
 * GCC Pass 1
@@ -46,11 +66,17 @@ Main components:
 * Glibc temporary build
 * Libstdc++ temporary build
 
-### 3. Temporary Tools
+**Result:**
+A basic cross-compilation environment is available for building the next temporary tools.
 
-This stage builds temporary tools that are required before entering the chroot environment.
+---
 
-Examples:
+## Stage 3: Temporary Tools
+
+**Purpose:**
+Build temporary tools that are required before entering the chroot environment.
+
+**Examples of packages:**
 
 * M4
 * Ncurses
@@ -70,24 +96,37 @@ Examples:
 * Binutils Pass 2
 * GCC Pass 2
 
-### 4. Chroot Preparation
+**Result:**
+The LFS filesystem contains enough temporary tools to prepare and enter the chroot environment.
 
-This stage prepares the LFS environment so it can be entered as an isolated root filesystem.
+---
 
-Main tasks:
+## Stage 4: Chroot Preparation
+
+**Purpose:**
+Prepare the LFS filesystem so it can be used as an isolated root environment.
+
+**Main tasks:**
 
 * Change ownership of the LFS filesystem to `root`.
 * Mount virtual filesystems such as `/dev`, `/proc`, `/sys`, and `/run`.
 * Enter the chroot environment.
 * Create the basic directory structure.
 * Create `/etc/passwd` and `/etc/group`.
-* Create initial log files and the `tester` user.
+* Create initial log files.
+* Create the `tester` user.
 
-### 5. Temporary Tools inside Chroot
+**Result:**
+The build process moves from the host system into the LFS chroot environment.
 
-This stage builds additional temporary tools from inside the chroot environment.
+---
 
-Main packages:
+## Stage 5: Temporary Tools inside Chroot
+
+**Purpose:**
+Build additional temporary tools from inside the chroot environment.
+
+**Main packages:**
 
 * Gettext
 * Bison
@@ -96,22 +135,34 @@ Main packages:
 * Texinfo
 * Util-linux
 
-### 6. Temporary System Cleanup
+**Result:**
+The chroot environment becomes ready for cleanup and final system package builds.
 
-This stage removes temporary files and prepares the environment for building the final system.
+---
 
-Main tasks:
+## Stage 6: Temporary System Cleanup
+
+**Purpose:**
+Remove temporary files and prepare the system for final package builds.
+
+**Main tasks:**
 
 * Remove temporary documentation files.
 * Remove unnecessary `.la` files.
 * Remove the `/tools` directory.
-* Prepare for final Chapter 8 package builds.
+* Clean temporary build artifacts.
 
-### 7. Final System Packages
+**Result:**
+The system is ready to begin building the final LFS packages.
 
-This is the main final build stage where the real LFS system packages are built.
+---
 
-Examples:
+## Stage 7: Final System Packages
+
+**Purpose:**
+Build the real packages that will become part of the final LFS system.
+
+**Examples of packages:**
 
 * Man-pages
 * Iana-Etc
@@ -133,11 +184,17 @@ Examples:
 * Bash
 * Systemd
 
-### 8. System Configuration
+**Result:**
+The final user-space system is built.
 
-This stage configures the final LFS system.
+---
 
-Main tasks:
+## Stage 8: System Configuration
+
+**Purpose:**
+Configure the final LFS system so it can operate correctly after boot.
+
+**Main tasks:**
 
 * Configure networking.
 * Configure locale settings.
@@ -146,11 +203,17 @@ Main tasks:
 * Configure systemd services.
 * Create `/etc/fstab`.
 
-### 9. Kernel and Boot Setup
+**Result:**
+The final system configuration is prepared.
 
-This stage prepares the system for booting independently.
+---
 
-Main tasks:
+## Stage 9: Kernel and Boot Setup
+
+**Purpose:**
+Prepare the system to boot independently.
+
+**Main tasks:**
 
 * Build the Linux kernel.
 * Install kernel modules.
@@ -158,9 +221,23 @@ Main tasks:
 * Perform final cleanup.
 * Reboot into the completed LFS system.
 
-## Current Progress Marker
+**Result:**
+The system is ready for the first boot.
 
-The current build progress is in Chapter 8, during the final system package build stage.
+---
 
-The temporary cross-toolchain, temporary tools, chroot preparation, and temporary tools inside chroot stages have already been completed.
+## Current Progress
 
+The current build progress is in **Chapter 8**, during the final system package build stage.
+
+Completed major stages:
+
+* Temporary cross-toolchain
+* Temporary tools
+* Chroot preparation
+* Temporary tools inside chroot
+* Temporary system cleanup
+
+Current focus:
+
+* Final system packages
