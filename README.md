@@ -293,4 +293,4 @@ Always refer to the official LFS book before executing commands. The notes in th
 - ✅ Chapter 8 — Installing Basic System Software: Completed
 - ⏭️ Chapter 9 — System Configuration: Next
 
-See the [Chapter 8 Completion Record](docs/chapter-08-completion.md) for verification details and screenshot evidence.
+See the [Chapter 8 Completion Record](docs/chapter-08-installing-basic-system-software.md) for verification details and screenshot evidence.
