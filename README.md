@@ -60,7 +60,7 @@ LFS-13.0-Systemd-Build-Notes/
 
 ## Current Build Status
 
-The build has reached the `chroot` environment and is currently in Chapter 8: Installing Basic System Software.
+The build has completed Chapter 8: Installing Basic System Software and is ready to begin Chapter 9: System Configuration.
 
 The temporary toolchain and temporary tools stages have been completed successfully.
 
@@ -92,7 +92,7 @@ The following major stages have been completed:
 * Building temporary tools inside chroot
 * Cleaning temporary documentation and `.la` files
 * Removing `/tools`
-* Starting Chapter 8 final system software
+* Completed Chapter 8 final system software
 
 ---
 
@@ -107,7 +107,7 @@ The following major stages have been completed:
 | Chapter 5 - Compiling a Cross-Toolchain                  | Completed                 |
 | Chapter 6 - Cross Compiling Temporary Tools              | Completed                 |
 | Chapter 7 - Entering Chroot and Building Temporary Tools | Completed                 |
-| Chapter 8 - Installing Basic System Software             | In progress               |
+| Chapter 8 - Installing Basic System Software             | Completed                 |
 | Chapter 9 - System Configuration                         | Not started               |
 | Chapter 10 - Making the LFS System Bootable              | Not started               |
 | Chapter 11 - The End                                     | Not started               |
@@ -274,7 +274,7 @@ https://www.linuxfromscratch.org/
 * LFS edition: 13.0 Systemd
 * Main LFS path: `/mnt/lfs`
 * Build method: Manual compilation from source
-* Current progress: Preparing for kernel configuration and boot setup
+* Current progress: Chapter 8 completed; preparing to begin Chapter 9 system configuration
 
 ## Repository Structure
 
@@ -287,3 +287,10 @@ https://www.linuxfromscratch.org/
 
 Always refer to the official LFS book before executing commands. The notes in this repository reflect a specific build environment and may require adjustments on other systems.
 
+
+## Current Build Progress
+
+- ✅ Chapter 8 — Installing Basic System Software: Completed
+- ⏭️ Chapter 9 — System Configuration: Next
+
+See the [Chapter 8 Completion Record](docs/chapter-08-completion.md) for verification details and screenshot evidence.
